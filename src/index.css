@@ -1,0 +1,38 @@
+/* src/index.css */
+
+/* Global resets */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Root variables for brand consistency */
+:root {
+  --color-skyblue: #87ceeb;
+  --color-oceanblue: #1ca9c9;
+  --color-white: #ffffff;
+  --color-dark: #111111;
+
+  --font-body: 'Inter', sans-serif;
+}
+
+/* Body defaults */
+body {
+  font-family: var(--font-body);
+  background-color: var(--color-white);
+  color: var(--color-dark);
+  line-height: 1.5;
+}
+
+/* Links */
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Buttons */
+button {
+  cursor: pointer;
+  font-family: inherit;
+}
