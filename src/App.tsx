@@ -54,7 +54,7 @@ const PORTFOLIO: PortfolioItem[] = [
 
 const LOGOS = new Array(8)
   .fill(0)
-  .map((_, i) => ({ id: `l${i}`, src: `/logo${(i % 5) + 1}.png` })); // place logos in public as logo1.png ...
+  .map((_, i) => ({ id: `l${i}`, src: `/logo${(i % 9) + 1}.png` })); // place logos in public as logo1.png ...
 
 /* ------------------
    Motion Variants
