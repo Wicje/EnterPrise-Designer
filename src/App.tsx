@@ -2,7 +2,9 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Portfolio } from "./components/Portfolio";
 import { page, fadeUp, staggerContainer, cardHover } from "./utils/animation";
-
+import Hero from "./components/Hero/Hero";
+import Contact from "./components/Contact/Contact";
+import "./App.css";
 /**
  * Updated App.tsx
  * - Adds premium animations (stagger, fade, slide-up, hover scale+shadow)
@@ -15,72 +17,11 @@ import { page, fadeUp, staggerContainer, cardHover } from "./utils/animation";
  *  npm run dev
  */
 
-/* ------------------
-   Types & Data
-   ------------------ */
-/*type PortfolioItem = {
-  id: string;
-  title: string;
-  desc: string;
-  images: string[]; // instead of just img
-};*/
-/*
-const PORTFOLIO: PortfolioItem[] = [
-  {
-    id: "p1",
-    title: "Project Alpha",
-    desc: "Enterprise rebrand + system",
-    images: ["/portfolio1.jpg", "/portfolio1b.jpg", "/portfolio1c.jpg"],
-  },
-  {
-    id: "p2",
-    title: "Project Beta",
-    desc: "Global logo suite",
-    images: ["/portfolio2.jpg", "/portfolio2b.jpg"],
-  },
-  {
-    id: "p3",
-    title: "Project Gamma",
-    desc: "Product identity & tokens",
-    images: ["/portfolio3.jpg", "/portfolio3b.jpg"],
-  },
-  {
-    id: "p4",
-    title: "Project Delta",
-    desc: "Design system integration",
-    images: ["/portfolio4.jpg"],
-  },
-];*/
 
 const LOGOS = new Array(8)
   .fill(0)
   .map((_, i) => ({ id: `l${i}`, src: `/logo${(i % 9) + 1}.png` })); // place logos in public as logo1.png ...
 
-/* ------------------
-   Motion Variants
-   ------------------ */
-/*const page = {
-  hidden: { opacity: 0, y: 8 },
-  show: { opacity: 1, y: 0, transition: { when: "beforeChildren", staggerChildren: 0.06 } }
-};
-
-const fadeUp = {
-  hidden: { opacity: 0, y: 12 },
-  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
-};
-
-const staggerContainer = {
-  hidden: { opacity: 0 },
-  show: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.12
-    }
-  }
-};
-
-const cardHover = { scale: 1.03, boxShadow: "0 20px 40px rgba(17,17,17,0.12)" };
-*/
 /* ------------------
    App
    ------------------ */
@@ -130,45 +71,6 @@ const Header: React.FC = () => (
       </div>
     </div>
   </header>
-);
-
-/* ------------------
-   Hero (staggered text + image)
-   ------------------ */
-const Hero: React.FC = () => (
-  <section className="hero container" id="home" aria-label="Hero">
-    <div className="hero-left">
-      <motion.h1 variants={fadeUp} initial="hidden" animate="show">
-        Enterprise-grade brand & logo systems that scale.
-      </motion.h1>
-
-      <motion.p variants={fadeUp} initial="hidden" animate="show" transition={{ delay: 0.08 }} className="lead">
-        We build identity systems, governance, and design tokens so your brand behaves predictably across all teams and touchpoints.
-      </motion.p>
-
-      <motion.div className="hero-ctas" variants={staggerContainer} initial="hidden" animate="show">
-        <motion.a whileHover={{ scale: 1.03 }} className="btn primary large" href="#portfolio">View Portfolio</motion.a>
-        <motion.a whileHover={{ scale: 1.03 }} className="btn ghost" href="#contact">Book a consult</motion.a>
-      </motion.div>
-
-      <motion.div className="hero-features" variants={staggerContainer} initial="hidden" animate="show">
-        <Feature label="Brand Systems" />
-        <Feature label="Design Ops" />
-        <Feature label="Tokenized UI" />
-      </motion.div>
-    </div>
-
-    <motion.aside className="hero-right" variants={fadeUp} initial="hidden" animate="show" aria-hidden>
-      {/* Replace /hero.jpg with your real hero artwork in public folder */}
-      <div className="hero-card">
-        <img src="/Hero.jpg" alt="Hero visual" />
-      </div>
-    </motion.aside>
-  </section>
-);
-
-const Feature: React.FC<{ label: string }> = ({ label }) => (
-  <div className="pill">{label}</div>
 );
 
 /* ------------------
@@ -255,41 +157,6 @@ const Services: React.FC = () => {
   );
 };
 
-/* ------------------
-   Portfolio (staggered reveal on scroll)
-   ------------------ */
-/*const Portfolio: React.FC = () => (
-  <section id="portfolio" className="container" aria-labelledby="portfolio-heading">
-    <h2 id="portfolio-heading">Selected Work</h2>
-    <p className="muted">Case studies and identity systems for enterprise clients.</p>
-
-    <motion.div
-      className="grid portfolio-grid"
-      variants={staggerContainer}
-      initial="hidden"
-      whileInView="show"
-      viewport={{ once: true, amount: 0.15 }}
-    >
-      {PORTFOLIO.map((p) => (
-        <motion.div
-          key={p.id}
-          className="card portfolio-card"
-          variants={fadeUp}
-          whileHover={{ y: -8, ...cardHover }}
-          transition={{ duration: 0.35 }}
-        >
-          {/* replace images in public/ with real captures *//*}
-<img src={p.img} alt={p.title} />
-<h4>{p.title}</h4>
-<p className="muted">{p.desc}</p>
-<a className="link" href="#">
-View case study →
-</a>
-</motion.div>
-))}
-</motion.div>
-</section>
-);*/
 
 /* ------------------
    About + Founder (slide-up)
@@ -325,96 +192,6 @@ const About: React.FC = () => (
   </section>
 );
 
-/* ------------------
-   Contact (centralized, multi-channel)
-   ------------------ */
-const Contact: React.FC = () => {
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const form = e.target as HTMLFormElement & {
-      name: HTMLInputElement;
-      email: HTMLInputElement;
-      message: HTMLTextAreaElement;
-    };
-    const name = form.name.value.trim();
-    const email = form.email.value.trim();
-    const message = form.message.value.trim();
-    if (!name || !email || !message) {
-      alert("Please fill required fields");
-      return;
-    }
-    // TODO: replace with API/CRM integration (POST to your endpoint)
-    alert("Message sent (mock). Replace with API/CRM integration.");
-    form.reset();
-  };
-
-  const whatsappNumber = "2348012345678"; // replace with your number in international format, no plus sign (example Nigeria)
-  const whatsappLink = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
-    "Hi — I want to discuss an enterprise branding project."
-  )}`;
-
-  return (
-    <section id="contact" className="container" aria-labelledby="contact-heading">
-      <motion.h2 variants={fadeUp} initial="hidden" whileInView="show" id="contact-heading">
-        Contact
-      </motion.h2>
-
-      <motion.p variants={fadeUp} initial="hidden" whileInView="show" className="muted">
-        Send a short brief, book a consult, or message us directly. We reply to enterprise inquiries within 48 hours.
-      </motion.p>
-
-      <div className="contact-wrap">
-        <motion.form className="contact-form card center" onSubmit={handleSubmit} variants={fadeUp} initial="hidden" whileInView="show">
-          <div className="row">
-            <input name="name" className="input" placeholder="Full name" aria-label="Full name" required />
-            <input name="email" type="email" className="input" placeholder="Email" aria-label="Email" required />
-          </div>
-
-          <textarea name="message" className="input" placeholder="Brief / message" aria-label="Message" required />
-
-          <div className="row actions">
-            <button className="btn primary" type="submit">
-              Send message
-            </button>
-
-            <a className="btn ghost" href="https://calendly.com/your-link" target="_blank" rel="noreferrer">
-              Book a meeting
-            </a>
-
-            {/* WhatsApp DM as a professional alternative */}
-            <a className="btn whatsapp" href={whatsappLink} target="_blank" rel="noreferrer" aria-label="WhatsApp">
-              Message on WhatsApp
-            </a>
-          </div>
-        </motion.form>
-
-        {/* Quick contact cards (center-right) */}
-        <motion.aside className="contact-side" variants={fadeUp} initial="hidden" whileInView="show">
-          <div className="contact-card">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden>
-              <path d="M2 4v16l4-4h12V4H2z" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-            <div>
-              <strong>Email</strong>
-              <div className="muted">contact@designer.example</div>
-            </div>
-          </div>
-
-          <div className="contact-card">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" aria-hidden>
-              <path d="M21 8V7a2 2 0 0 0-2-2h-3" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
-              <path d="M3 21v-6a2 2 0 0 1 2-2h4l4-3 4 3h2a2 2 0 0 1 2 2v6" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-            <div>
-              <strong>Office</strong>
-              <div className="muted">Remote / By appointment</div>
-            </div>
-          </div>
-        </motion.aside>
-      </div>
-    </section>
-  );
-};
 
 /* ------------------
    Footer with SVG socials + Arch reference
@@ -470,17 +247,7 @@ const Style: React.FC = () => (
   .btn.ghost{background:transparent;border:1px solid rgba(17,17,17,0.06)}
   .btn.whatsapp{background:linear-gradient(90deg,#25D366,#128C7E);color:white;border:none}
 
-  /* Hero */
-  .hero{display:grid;grid-template-columns:1fr 520px;gap:32px;align-items:center;padding:64px 0}
-  .hero h1{font-size:clamp(1.6rem,2.6vw,2.8rem);margin:0}
-  .lead{color:var(--muted);margin-top:12px}
-  .hero-ctas{display:flex;gap:12px;margin-top:18px}
-  .hero-features{display:flex;gap:8px;margin-top:18px}
-  .pill{background:rgba(28,169,201,0.06);padding:8px 12px;border-radius:999px;color:var(--dark);font-weight:600}
-  .hero-right .hero-card{border-radius:16px;overflow:hidden;box-shadow:0 30px 60px rgba(17,17,17,0.06)}
-  .hero-right img{display:block;width:100%;height:auto;object-fit:cover}
-
-  /* Trusted */
+    /* Trusted */
   .trusted{padding:22px 0}
   .muted{color:var(--muted)}
   .logo-scroller{overflow:hidden;margin-top:12px}
@@ -506,16 +273,7 @@ const Style: React.FC = () => (
   .founder{display:flex;gap:12px;align-items:center}
   .founder .founder-media img{width:88px;height:88px;object-fit:cover;border-radius:12px;box-shadow:0 12px 30px rgba(17,17,17,0.06)}
 
-  /* Contact */
-  .contact-wrap{display:grid;grid-template-columns:1fr 320px;gap:24px;align-items:start;margin-top:18px}
-  .contact-form.center{margin:0 auto}
-  .row{display:flex;gap:12px}
-  .input{padding:12px;border-radius:10px;border:1px solid rgba(17,17,17,0.06);flex:1}
-  textarea.input{min-height:120px}
-  .contact-side{display:flex;flex-direction:column;gap:12px}
-  .contact-card{display:flex;gap:12px;align-items:center;padding:12px;border-radius:10px;background:rgba(17,17,17,0.02)}
-
-  /* Footer */
+    /* Footer */
   .site-footer{padding:36px 0;border-top:1px solid rgba(17,17,17,0.03);color:var(--muted)}
   .footer-grid{display:flex;justify-content:space-between;align-items:center}
   .socials{display:flex;gap:12px}
