@@ -1,28 +1,24 @@
 .hero {
-  padding: 64px 0;
-  background: var(--white);
-}
-
-.hero-inner {
   position: relative;
-  max-width: var(--container);
-  /* same as Trusted */
-  margin: 0 auto;
   text-align: center;
-  /* center all text */
+  padding: 40px 0 0;
 }
 
-/* Background Image */
-.hero-bg {
-  width: 100%;
-  max-width: 100%;
-  /* keeps it inside container */
-  height: 380px;
-  object-fit: cover;
+.hero h1 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  margin: 0, 20px;
+  text-align: center;
+}
+
+.hero img {
   display: block;
-  border-radius: var(--radius);
+  width: 100%;
+  max-width: var(--container);
   margin: 0 auto;
-  filter: brightness(0.7);
+  border-radius: 12px;
+  object-fit: cover;
+  height: 400px; /* Adjust for balance */
 }
 
 /* Overlay text sits above image */
@@ -36,18 +32,9 @@
   padding: 0 20px;
   width: 100%;
   max-width: 800px;
+  font-size: clamp(1rem, 2vw, 1,5rem);
+  font-weight: 400;
+
 }
 
-.hero-content h1 {
-  font-size: clamp(2.4rem, 5vw, 3.2rem);
-  font-weight: 800;
-  color: var(--white);
-  margin: 0 0 12px 0;
-}
 
-.hero-content p {
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: #f3f4f6;
-  margin: 0 auto;
-}
